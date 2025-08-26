@@ -53,74 +53,9 @@ class CancelTokenManager {
     }
   }
 
-  /// Cancel multiple requests by tags.
-  void cancelMultipleRequests(List<String> tags, {String? reason}) {
-    for (final tag in tags) {
-      cancelRequest(tag, reason: reason);
-    }
-  }
-
-  /// Check if a specific request is cancelled.
-  bool isCancelled(String tag) {
-    final token = _cancelTokens[tag];
-    return token?.isCancelled ?? true;
-  }
-
-  /// Check if any requests are currently active.
-  bool get hasActiveRequests {
-    return _cancelTokens.values.any((token) => !token.isCancelled);
-  }
-
-  /// Get the count of active requests.
-  int get activeRequestCount {
-    return _cancelTokens.values.where((token) => !token.isCancelled).length;
-  }
-
-  /// Get the count of cancelled requests.
-  int get cancelledRequestCount {
-    return _cancelTokens.values.where((token) => token.isCancelled).length;
-  }
-
-  /// Get all active request tags.
-  List<String> get activeRequestTags {
-    return _cancelTokens.entries
-        .where((entry) => !entry.value.isCancelled)
-        .map((entry) => entry.key)
-        .toList();
-  }
-
-  /// Get all cancelled request tags.
-  List<String> get cancelledRequestTags {
-    return _cancelTokens.entries
-        .where((entry) => entry.value.isCancelled)
-        .map((entry) => entry.key)
-        .toList();
-  }
-
-  /// Remove a specific token from the manager.
-  /// Useful for cleanup when you no longer need a specific token.
-  void removeToken(String tag) {
-    _cancelTokens.remove(tag);
-  }
-
-  /// Clear all tokens from the manager.
-  void clearAllTokens() {
-    cancelAllRequests(reason: 'Manager cleared');
-    _cancelTokens.clear();
-  }
-
   /// Dispose the manager and cancel all requests.
   void dispose() {
     cancelAllRequests(reason: 'Manager disposed');
     _cancelTokens.clear();
-  }
-
-  /// Get a summary of all tokens and their status.
-  Map<String, bool> getTokenStatus() {
-    return Map.fromEntries(
-      _cancelTokens.entries.map(
-        (entry) => MapEntry(entry.key, entry.value.isCancelled),
-      ),
-    );
   }
 }

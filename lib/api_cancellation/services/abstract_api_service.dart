@@ -64,7 +64,9 @@ abstract class AbstractApiService {
 
     // Get the cancel token for this request
     final cancelToken = getToken(tag ?? cancelTokenTag, forceNew: true);
-
+    final context = navigatorKey.currentContext;
+    final scaffoldState =
+        context != null ? ScaffoldMessenger.of(context) : null;
     try {
       final response = await _dio.get<T>(
         endpoint,
@@ -83,14 +85,16 @@ abstract class AbstractApiService {
 
       return response.data as T;
     } catch (e) {
-      if (e is DioException && e.message == 'The request was manually cancelled by the user.') {
+      if (e is DioException &&
+          e.message == 'The request was manually cancelled by the user.') {
         // also show a snackbar
-        final context = navigatorKey.currentContext;
-        if (context != null) {
-          ScaffoldMessenger.of(context).showSnackBar(
+        if (scaffoldState != null) {
+          scaffoldState.showSnackBar(
             const SnackBar(
               content: Text('Request was cancelled'),
+              behavior: SnackBarBehavior.floating,
             ),
+            
           );
         }
       }
