@@ -53,6 +53,7 @@ class CancelTokenManager {
     }
   }
 
+
   /// Dispose the manager and cancel all requests.
   void dispose() {
     cancelAllRequests(reason: 'Manager disposed');

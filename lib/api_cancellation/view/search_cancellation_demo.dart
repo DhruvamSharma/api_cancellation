@@ -13,13 +13,6 @@ class SearchCancellationDemo extends StatefulWidget {
 }
 
 class _SearchCancellationDemoState extends State<SearchCancellationDemo> {
-  final TextEditingController _searchController = TextEditingController();
-
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
-  }
 
   Future<void> _performSearch(String query) async {
     final bloc = context.read<ApiCancellatioBloc>();
@@ -79,7 +72,6 @@ class _SearchCancellationDemoState extends State<SearchCancellationDemo> {
             ),
             const SizedBox(height: 24),
             TextField(
-              controller: _searchController,
               onChanged: _onSearchChanged,
               decoration: InputDecoration(
                 hintText: 'Type to search...',

@@ -127,14 +127,4 @@ abstract class AbstractApiService {
     }
     return Exception('Unexpected error for $endpoint: $error');
   }
-
-  /// Cancel all requests managed by this service.
-  void cancelAllRequests({String? reason}) {
-    _tokenManager.cancelRequest(cancelTokenTag, reason: reason);
-  }
-
-  /// Dispose the service and cancel all its requests.
-  void dispose() {
-    cancelAllRequests(reason: 'Service disposed');
-  }
 }

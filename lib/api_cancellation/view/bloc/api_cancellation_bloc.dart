@@ -39,7 +39,7 @@ class ApiCancellatioBloc
     });
 
     on<CancelManualApiRquest>((event, emit) {
-      userApiService.cancelAllRequests(reason: 'User cancelled the request');
+      userApiService.cancelRequest(userApiService.cancelTokenTag);
       emit(
         state.copyWith(
           usersState: const DataFieldError('Request cancelled'),

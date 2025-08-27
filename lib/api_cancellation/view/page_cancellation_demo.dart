@@ -2,7 +2,6 @@ import 'package:api_cancellation/api_cancellation/helpers/data_field.dart';
 import 'package:api_cancellation/api_cancellation/helpers/user_entity.dart';
 import 'package:api_cancellation/api_cancellation/services/user_api_service.dart';
 import 'package:api_cancellation/api_cancellation/view/bloc/api_cancellation_bloc.dart';
-import 'package:api_cancellation/api_cancellation/view/widgets/request_statistics_table.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
